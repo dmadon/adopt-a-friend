@@ -1,0 +1,12 @@
+/* .justify-content-center{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+} */
+
+.animalCardName{
+    margin: 0;
+}
+.bold{
+    font-weight: bold;
+}
