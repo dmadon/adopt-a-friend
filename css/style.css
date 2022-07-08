@@ -1,12 +1,25 @@
+
+
 /* .justify-content-center{
     display: flex;
     align-items: center;
     justify-items: center;
 } */
 
-.animalCardName{
-    margin: 0;
-}
 .bold{
     font-weight: bold;
 }
+
+
+/* remove margin from the animalCardName <p> tag because it was taking up too much vertical space on the card */
+.animalCardName{
+    margin: 0;
+}
+
+
+
+/* remove right padding from card so that the colored name heading will extend all the way to the right edge of the card */
+.card{
+    padding-right: 0!important;
+}
+
