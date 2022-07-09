@@ -54,7 +54,7 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
 
                     // animal photo to append to the photo container
                     var primPhoto = document.createElement("img");
-                    primPhoto.classList=("card-image animal-info-item");
+                    primPhoto.classList=("card-image  ");
                         if(data.animals[i].primary_photo_cropped){
                             var thumbnail = data.animals[i].primary_photo_cropped.small;
                         }
@@ -80,10 +80,14 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
 
                             // animal name that appears inside the green header
                             var petName = document.createElement("p");
-                            petName.classList=("animalCardName animal-info-item bold");
+                            petName.classList=("animalCardName bold");
                             petName.textContent=(data.animals[i].name);
                             nameWrapper.appendChild(petName);
 
+                            var savFav = document.createElement("button");
+                            savFav.classList=("btn-floating btn-medium waves-effect waves-light grey right halfway-fab");
+                            savFav.innerHTML=("<i class='material-icons favBtn' data-fav-id="+data.animals[i].id+">favorite_border</i>")
+                            nameWrapper.appendChild(savFav);
                             
                         
                         // second div on right side of card: this contains the animal info below the animal's name
@@ -98,21 +102,25 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
                             }
 
                             var petBreed = document.createElement("p");
-                            petBreed.classList=("animal-info-item");
+                            petBreed.classList=(" ");
                             petBreed.textContent=("Breed(s): "+data.animals[i].breeds.primary+secondaryBreed);
                             cardContent.appendChild(petBreed);
 
                             var petGender = document.createElement("p");
-                            petGender.classList=("animal-info-item");
+                            petGender.classList=(" ");
                             petGender.textContent=("Gender: "+data.animals[i].gender);
                             cardContent.appendChild(petGender);
 
                             var petAge = document.createElement("p");
-                            petAge.classList=("animal-info-item");
+                            petAge.classList=(" ");
                             petAge.textContent=("Age group: "+data.animals[i].age);
                             cardContent.appendChild(petAge);
 
-                    
+                            var petLocation = document.createElement("p");
+                            petLocation.classList=(" ");
+                            petLocation.textContent=("Location: "+data.animals[i].contact.address.city+", "+data.animals[i].contact.address.state);
+                            cardContent.appendChild(petLocation);
+
                     rightSide.appendChild(nameWrapper);    
                     
                     rightSide.appendChild(cardContent);
@@ -134,3 +142,53 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
 
 // breedInputEl.addEventListener("change",authorize);
 authorize(getInfo);
+
+// SAVE PETS TO FAVORITES
+var favArray = [];
+
+var saveFavorite = function(event){
+
+    var clicked = event.target;
+
+    // this function toggles the favorite animal button, adding or removing an animal from the list of favorites
+    if(clicked.getElementsByClassName("favBtn"))
+    var target = event.target.getAttribute("data-fav-id");
+        if(target){
+            // if there are already favorites saved in favArray
+            if(favArray.length>0){
+                // look and see if the animal is already saved in favArray
+                var index = favArray.indexOf(target);
+                    // if the animal was not already in favArray, add the animal to it and set the "favorite" icon color to green
+                    if(index <0){
+                        favArray.push(target);
+                        var icon=document.querySelector('[data-fav-id = "'+target+'"]');
+                        icon.classList.remove("grey");
+                        icon.classList.add("green","darken-2");
+                        return;
+                    }
+                    // if the animal was already in favArray, delete it and set the "favorite" icon color back to grey
+                    else{
+                        favArray.splice(index,1);
+                        var icon=document.querySelector('[data-fav-id = "'+target+'"]');
+                        icon.classList.remove("green","darken-2");
+                        icon.classList.add("grey");
+                        return;
+                    }
+            } 
+            // if favArray was empty, add animal to favArray and set the "favorite" icon color to green
+            else{
+                console.log(target);
+                favArray.push(target);
+                var icon=document.querySelector('[data-fav-id = "'+target+'"]');
+                icon.classList.remove("grey");
+                icon.classList.add("green","darken-2");
+                return;
+            }  
+    }
+}
+
+
+
+
+
+animalInfoEl.addEventListener("click", saveFavorite);
