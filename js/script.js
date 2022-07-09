@@ -1,17 +1,18 @@
+var pf = new petfinder.Client({apiKey: "iRFrneB2mkJOOzVLPMTPpShKXk7easKfumf7IM75Xnwba8w8tq", secret: "sEVE2RVHpkQuVbJkDVdwWZQDMCoyNgYk5EGdVvqP"});
+
 var animalInfoEl = document.querySelector("#animalInfo");
 var breedInputEl = document.querySelector("#breed");
 
+var authorize = function(){
+    pf.authenticate()
+        .then(resp => {
+        var token = resp.data.access_token;
+        getInfo(token);
+    });    
+}
 
-var APIkey = "iRFrneB2mkJOOzVLPMTPpShKXk7easKfumf7IM75Xnwba8w8tq";
-var secret = "sEVE2RVHpkQuVbJkDVdwWZQDMCoyNgYk5EGdVvqP";
-var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJpUkZybmVCMm1rSk9PelZMUE1UUHBTaEtYazdlYXNLZnVtZjdJTTc1WG53YmE4dzh0cSIsImp0aSI6IjE2ZjdhZWIwNzcwMDFmNjY3ZTYxYTI0NDgzYmNlMDg3NjZmNTNhN2MzMmMxNTJiMWY4OTNjMjc5MzFiYjFhMjhkZmMxNTg1MjQ0MTA5OTgzIiwiaWF0IjoxNjU3MzEzNTUwLCJuYmYiOjE2NTczMTM1NTAsImV4cCI6MTY1NzMxNzE1MCwic3ViIjoiIiwic2NvcGVzIjpbXX0.oX2YCJgqndppTNcC1XL6h_TApnRbCh3XcM8n3poyWEalFAazhO4f64E36_jbTk0AAdTd7F4VjMN_4nBSvEqctJAyf_hhyYj53FF1Q3Ilc7BCJosi0xj8Q5HsRHhl5U-x4GZAGMmsDuJucDodn0wCf7LgPLaxvTi0bZMYHxJzDaMZZ6eVVcZYR4f2ZN9Oj-eoVerQSufFjVShI6GD_jsl4_E0nmNM6hkvBD4_1RohcqDkqwuDbIhHaTEn-Ji9xgifeGGz7jvd-dW_4d0SUVU9bVDu9xU3EvW8a1Y9-vwZ1CLAxvGkSnlphSsic0Zl6NOAnDln44Uw5im1200WycnTnw";
 
-// get new access token by requesting from the command line (copy and paste this into the command line prompt):
-// curl -d "grant_type=client_credentials&client_id=iRFrneB2mkJOOzVLPMTPpShKXk7easKfumf7IM75Xnwba8w8tq &client_secret=sEVE2RVHpkQuVbJkDVdwWZQDMCoyNgYk5EGdVvqP" https://api.petfinder.com/v2/oauth2/token
-// once you have been granted a new access token, replace the "token" variable above with the new token
-
-
-var getInfo = function(){
+var getInfo = function(token){
 
     if(document.getElementsByClassName("animal-card")){
         document.querySelectorAll(".animal-card").forEach(function(a){
@@ -24,7 +25,6 @@ var getInfo = function(){
 var animalbreed = "boxer";
 
 var queryURL = "https://api.petfinder.com/v2/animals?breed="+animalbreed;
-
 
 fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
     .then(function(response){
@@ -123,5 +123,5 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
 
 }
 
-// breedInputEl.addEventListener("change",getInfo);
-getInfo();
+// breedInputEl.addEventListener("change",authorize);
+authorize();
