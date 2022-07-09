@@ -59,7 +59,7 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
                             var thumbnail = data.animals[i].primary_photo_cropped.small;
                         }
                         else{
-                            var thumbnail = "./images/paw-heart-gray.png";
+                            var thumbnail = "./images/paw-heart-gray-padded.png";
                         }
                     primPhoto.src=(thumbnail);
                     primPhoto.height=(180);
