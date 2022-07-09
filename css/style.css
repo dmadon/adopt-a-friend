@@ -1,0 +1,54 @@
+
+
+.justify-content-center{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+.border{
+    border-color: black;
+    border-width: thin;
+    border-style: solid;
+}
+.border-top{
+    border-top-color: black;
+    border-top-width: thin;
+    border-top-style: solid;
+}
+.border-bottom{
+    border-bottom-color: black;
+    border-bottom-width: thin;
+    border-bottom-style: solid;
+}
+.border-right{
+    border-right-color: black;
+    border-right-width: thin;
+    border-right-style: solid;
+}
+.border-left{
+    border-left-color: black;
+    border-left-width: thin;
+    border-left-style: solid;
+}
+.bold{
+    font-weight: bold;
+}
+/* remove margin from the animalCardName <p> tag because it was taking up too much vertical space on the card */
+.animalCardName{
+    margin: 0;
+}
+
+
+
+/* remove right padding from card so that the colored name heading will extend all the way to the right edge of the card */
+.card{
+    padding-right: 0!important;
+    padding-left: 0!important;
+}
+
+#photoContainer{
+    width: 180px;
+    height: 180px;
+}
+
+
