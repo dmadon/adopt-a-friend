@@ -3,15 +3,16 @@ var pf = new petfinder.Client({apiKey: "iRFrneB2mkJOOzVLPMTPpShKXk7easKfumf7IM75
 var animalInfoEl = document.querySelector("#animalInfo");
 var breedInputEl = document.querySelector("#breed");
 
-var authorize = function(){
+// THIS FUNCTION GETS THE ACCESS TOKEN FOR THE SESSION AND SAVES IT TO A VARIABLE CALLED "TOKEN"
+var authorize = function(nextFunction){
     pf.authenticate()
         .then(resp => {
         var token = resp.data.access_token;
-        getInfo(token);
+        nextFunction(token);
     });    
 }
 
-
+// THIS FUNCTION MAKES A CALL TO THE PETFINDER API AND DISPLAYS ANIMALS THAT MATCH THE SEARCH CRITERIA SPECIFIED BY THE USER 
 var getInfo = function(token){
 
     if(document.getElementsByClassName("animal-card")){
@@ -32,10 +33,15 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
             response.json().then(function(data){
                 console.log(data);
                 for(i=0; i<data.animals.length; i++){
+                    
+                    // ANIMAL CARD HOLDER COLUMN
+                    var cardHolder = document.createElement("div");
+                    cardHolder.classList=("col s12 m6 l4 ");
+                    
                     // CREATE ANIMAL CARD
                     var animalCard = document.createElement("div");
                     animalCard.id=(data.animals[i].id);
-                    animalCard.classList=("card horizontal col s12 m6 l4 animal-card border");
+                    animalCard.classList=("card horizontal animal-card border");
                         
                     // INSERT ANIMAL PHOTO ON LEFT SIDE OF CARD
 
@@ -113,7 +119,10 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
 
                     animalCard.appendChild(rightSide);
 
-                    animalInfoEl.appendChild(animalCard);
+                    cardHolder.appendChild(animalCard);
+
+                    animalInfoEl.appendChild(cardHolder);
+                    
                 }
 
             })
@@ -124,4 +133,4 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
 }
 
 // breedInputEl.addEventListener("change",authorize);
-authorize();
+authorize(getInfo);
