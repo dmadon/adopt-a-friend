@@ -31,7 +31,7 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
     .then(function(response){
         if(response.ok){
             response.json().then(function(data){
-                console.log(data);
+                // console.log(data);
                 for(i=0; i<data.animals.length; i++){
                     
                     // ANIMAL CARD HOLDER COLUMN
@@ -46,9 +46,10 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
                     // INSERT ANIMAL PHOTO ON LEFT SIDE OF CARD
 
                     // container that holds the photo, set to a fixed width and height in style.css
-                    var photoContainer = document.createElement("div");
+                    var photoContainer = document.createElement("a");
                     photoContainer.classList=("card-image justify-content-center border-right");
                     photoContainer.id=("photoContainer");
+                    photoContainer.setAttribute("href", "./single.html?animalId="+data.animals[i].id);
 
                     // animal photo to append to the photo container
                     var primPhoto = document.createElement("img");

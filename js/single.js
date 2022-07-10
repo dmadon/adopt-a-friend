@@ -3,6 +3,8 @@ var pf = new petfinder.Client({apiKey: "iRFrneB2mkJOOzVLPMTPpShKXk7easKfumf7IM75
 var animalInfoEl = document.querySelector("#animalInfo");
 var breedInputEl = document.querySelector("#breed");
 
+
+
 // THIS FUNCTION GETS THE ACCESS TOKEN FOR THE SESSION AND SAVES IT TO A VARIABLE CALLED "TOKEN"
 var authorize = function(nextFunction){
     pf.authenticate()
@@ -21,20 +23,30 @@ var getInfo = function(token){
           })
         }
 
+    var animalId=""
+    
+    var getAnimalId = function(){
+        // grab animal id from url query string
+        var queryString = document.location.search;
+        var id = queryString.split("=")[1];
+        animalId=id;
+    }
 
-// var animalbreed = breedInputEl.value; 
-// var animalbreed = "boxer";
+    getAnimalId();
 
+    
 
-for(i=0;i<favArray.length;i++){
-    var queryURL = "https://api.petfinder.com/v2/animals/"+favArray[i];
+    console.log(animalId);
+
+// for(i=0;i<favArray.length;i++){
+    var queryURL = "https://api.petfinder.com/v2/animals/"+animalId;
 
     fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
         .then(function(response){
             if(response.ok){
                 response.json().then(function(data){
-                    // console.log(data);
-                    
+                    console.log(data);
+                    // for(i=0; i<data.animal.length; i++){
                         
                         // ANIMAL CARD HOLDER COLUMN
                         var cardHolder = document.createElement("div");
@@ -48,10 +60,9 @@ for(i=0;i<favArray.length;i++){
                         // INSERT ANIMAL PHOTO ON LEFT SIDE OF CARD
 
                         // container that holds the photo, set to a fixed width and height in style.css
-                        var photoContainer = document.createElement("a");
+                        var photoContainer = document.createElement("div");
                         photoContainer.classList=("card-image justify-content-center border-right");
                         photoContainer.id=("photoContainer");
-                        photoContainer.setAttribute("href", "./single.html?animalId="+data.animal.id);
 
                         // animal photo to append to the photo container
                         var primPhoto = document.createElement("img");
@@ -138,7 +149,7 @@ for(i=0;i<favArray.length;i++){
 
 
 
-                    
+                    // }// end of for loop of animal data
                     markFavs();
                 })
 
@@ -147,7 +158,7 @@ for(i=0;i<favArray.length;i++){
         })
 
     }
-}// end of for loop of favorites
+// }// end of for loop of favorites
 
 
 
