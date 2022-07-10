@@ -1,5 +1,4 @@
-
-
+/* Some utility classes to call upon when we need them */
 .justify-content-center{
     display: flex;
     align-content: center;
@@ -7,27 +6,27 @@
 }
 .border{
     border-color: black;
-    border-width: thin;
+    border-width: 2px;
     border-style: solid;
 }
 .border-top{
     border-top-color: black;
-    border-top-width: thin;
+    border-top-width: 2px;
     border-top-style: solid;
 }
 .border-bottom{
     border-bottom-color: black;
-    border-bottom-width: thin;
+    border-bottom-width: 2px;
     border-bottom-style: solid;
 }
 .border-right{
     border-right-color: black;
-    border-right-width: thin;
+    border-right-width: 2px;
     border-right-style: solid;
 }
 .border-left{
     border-left-color: black;
-    border-left-width: thin;
+    border-left-width: 2px;
     border-left-style: solid;
 }
 .bold{
@@ -37,18 +36,17 @@
 .animalCardName{
     margin: 0;
 }
-
-
-
-/* remove right padding from card so that the colored name heading will extend all the way to the right edge of the card */
+/* remove right padding from card so content goes all the way to the edges */
 .card{
     padding-right: 0!important;
     padding-left: 0!important;
 }
-
 #photoContainer{
     width: 180px;
     height: 180px;
+}
+#brand, #link1{
+    padding:0 2rem;
 }
 
 
