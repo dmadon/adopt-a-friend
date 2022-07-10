@@ -14,7 +14,7 @@ var authorize = function(nextFunction){
 
 // THIS FUNCTION MAKES A CALL TO THE PETFINDER API AND DISPLAYS ANIMALS THAT MATCH THE SEARCH CRITERIA SPECIFIED BY THE USER 
 var getInfo = function(token){
-
+    // remove any animal cards that were already on the page from the previous search
     if(document.getElementsByClassName("animal-card")){
         document.querySelectorAll(".animal-card").forEach(function(a){
             a.remove()
@@ -216,7 +216,7 @@ var markFavs = function(){
     for(i=0;i<favArray.length;i++){
         var icon = document.querySelector('[data-fav-id = "'+favArray[i]+'"]');
         if(icon){
-        console.log("found "+icon.getAttribute("data-fav-id"));
+        // console.log("found "+icon.getAttribute("data-fav-id"));
         icon.classList.remove("grey");
         icon.classList.add("green","darken-2");
         }
