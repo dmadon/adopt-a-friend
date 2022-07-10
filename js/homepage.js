@@ -45,12 +45,10 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
                         
                     // INSERT ANIMAL PHOTO ON LEFT SIDE OF CARD
 
-                    // container that holds the photo, set to a fixed width and height
+                    // container that holds the photo, set to a fixed width and height in style.css
                     var photoContainer = document.createElement("div");
                     photoContainer.classList=("card-image justify-content-center border-right");
                     photoContainer.id=("photoContainer");
-
-
 
                     // animal photo to append to the photo container
                     var primPhoto = document.createElement("img");
@@ -85,11 +83,11 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
                             nameWrapper.appendChild(petName);
 
                             var savFav = document.createElement("button");
-                            savFav.classList=("btn-floating btn-medium waves-effect waves-light grey right halfway-fab");
                             savFav.innerHTML=("<i class='material-icons favBtn' data-fav-id="+data.animals[i].id+">favorite_border</i>")
+                            savFav.classList=("btn-floating btn-medium waves-effect waves-light grey right halfway-fab");
                             nameWrapper.appendChild(savFav);
-                            
-                        
+
+                                                        
                         // second div on right side of card: this contains the animal info below the animal's name
                         var cardContent = document.createElement("div");
                         cardContent.classList=("card-content");
@@ -130,14 +128,21 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
                     cardHolder.appendChild(animalCard);
 
                     animalInfoEl.appendChild(cardHolder);
+
                     
-                }
+                    
+                    
 
+
+
+                }// end of for loop of animal data
+                markFavs();
             })
+            
         }
-
+        
     })
-
+    
 }
 
 // breedInputEl.addEventListener("change",authorize);
@@ -164,6 +169,7 @@ var saveFavorite = function(event){
                         var icon=document.querySelector('[data-fav-id = "'+target+'"]');
                         icon.classList.remove("grey");
                         icon.classList.add("green","darken-2");
+                        localStorage.setItem("storedFavorites",JSON.stringify(favArray));
                         return;
                     }
                     // if the animal was already in favArray, delete it and set the "favorite" icon color back to grey
@@ -172,21 +178,47 @@ var saveFavorite = function(event){
                         var icon=document.querySelector('[data-fav-id = "'+target+'"]');
                         icon.classList.remove("green","darken-2");
                         icon.classList.add("grey");
+                        localStorage.setItem("storedFavorites",JSON.stringify(favArray));
                         return;
                     }
             } 
             // if favArray was empty, add animal to favArray and set the "favorite" icon color to green
             else{
-                console.log(target);
                 favArray.push(target);
                 var icon=document.querySelector('[data-fav-id = "'+target+'"]');
                 icon.classList.remove("grey");
                 icon.classList.add("green","darken-2");
+                localStorage.setItem("storedFavorites",JSON.stringify(favArray));
                 return;
-            }  
-    }
+            } 
+    } 
 }
 
+
+
+// LOAD SAVED FAVORITES ON STARTUP
+var loadFavorites = function(){
+
+    var stored = localStorage.getItem("storedFavorites");
+    storedFavs = JSON.parse(stored);
+
+    if(storedFavs){
+
+        favArray=storedFavs;
+        console.log(favArray);
+    }
+};
+
+loadFavorites();
+
+// WHEN PETS CARDS ARE DISPLAYED, CHECK TO SEE IF ANY OF THEM ARE SAVED AS FAVORITES AND MAKE THEIR "FAVORITE" ICONS GREEN
+var markFavs = function(){
+    for(i=0;i<favArray.length;i++){
+        var icon = document.querySelector('[data-fav-id = "'+favArray[i]+'"]');
+        icon.classList.remove("grey");
+        icon.classList.add("green","darken-2");
+    }
+}
 
 
 
