@@ -138,11 +138,11 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
                 }// end of for loop of animal data
                 markFavs();
             })
-            
+
         }
-        
+
     })
-    
+
 }
 
 // breedInputEl.addEventListener("change",authorize);
@@ -215,8 +215,11 @@ loadFavorites();
 var markFavs = function(){
     for(i=0;i<favArray.length;i++){
         var icon = document.querySelector('[data-fav-id = "'+favArray[i]+'"]');
+        if(icon){
+        console.log("found "+icon.getAttribute("data-fav-id"));
         icon.classList.remove("grey");
         icon.classList.add("green","darken-2");
+        }
     }
 }
 
