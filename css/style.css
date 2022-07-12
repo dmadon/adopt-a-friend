@@ -1,0 +1,51 @@
+/* Some utility classes to call upon when we need them */
+.justify-content-center{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+.border{
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+}
+.border-top{
+    border-top-color: black;
+    border-top-width: 2px;
+    border-top-style: solid;
+}
+.border-bottom{
+    border-bottom-color: black;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+.border-right{
+    border-right-color: black;
+    border-right-width: 2px;
+    border-right-style: solid;
+}
+.border-left{
+    border-left-color: black;
+    border-left-width: 2px;
+    border-left-style: solid;
+}
+.bold{
+    font-weight: bold;
+}
+/* remove margin from the animalCardName <p> tag because it was taking up too much vertical space on the card */
+.animalCardName{
+    margin: 0;
+}
+/* remove right padding from card so content goes all the way to the edges */
+.card{
+    padding-right: 0!important;
+    padding-left: 0!important;
+}
+#photoContainer{
+    width: 180px;
+    height: 180px;
+}
+#brand, #link1{
+    padding:0 2rem;
+}
+
