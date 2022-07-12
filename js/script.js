@@ -1,16 +1,3 @@
-var name = 'great dane'
-$.ajax({
-    method: 'GET',
-    url: 'https://api.api-ninjas.com/v1/animals?name=' + name,
-    headers: { 'X-Api-Key': 'WUvIlMP9Lh6jH9iFMTl96g==MDmtTRZar9IKEKcd'},
-    contentType: 'application/json',
-    success: function(result) {
-        console.log(result);
-    },
-    error: function ajaxError(jqXHR) {
-        console.error('Error: ', jqXHR.responseText);
-    }
-});
 
 var pf = new petfinder.Client({apiKey: "iRFrneB2mkJOOzVLPMTPpShKXk7easKfumf7IM75Xnwba8w8tq", secret: "sEVE2RVHpkQuVbJkDVdwWZQDMCoyNgYk5EGdVvqP"});
 
@@ -25,6 +12,7 @@ var authorize = function(nextFunction){
         nextFunction(token);
     });    
 }
+
 
 // THIS FUNCTION MAKES A CALL TO THE PETFINDER API AND DISPLAYS ANIMALS THAT MATCH THE SEARCH CRITERIA SPECIFIED BY THE USER 
 var getInfo = function(token){

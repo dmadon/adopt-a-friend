@@ -10,14 +10,90 @@
     <link rel="stylesheet" href="./css/style.css">
   </head>
 <body>
+ 
   
+  <header class="green darken-2">
+    <nav>
+      <div class="nav-wrapper green darken-2">
+        <a id="brand" href="./index.html" class="brand-logo bold">Adopt-a-Friend</a>
+        <ul id="nav-mobile" class="right">
+          <li><a id="link1" class="bold" href="./favorites.html">My Favorites</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <input id="breed" type="text" placeholder="breed">
+
+  <main id="animalInfo" class="row">
+
+    <div class="container"> 
+      <h3>Find your Pet</h3>
+      <p>search for your favorite pet today!</p>
+      <form>
+        <label for="petType">Enter pet type :</label>
+        <input type="text" placeholder="Type" name="petType" id="animalInfo" class="bold" />
+        <label for="breed">Enter breed:</label>
+        <input type="text" placeholder="Breed" name="breed" id="animalInfo" class="bold" />
+        <label for="Age">Age:</label>
+        <input type="text" placeholder="Age" name="age" id="animalInfo" class="bold" />
+        <label for="size">Size:</label>
+        <input type="text" placeholder="size" name="size" id="animalInfo" class="bold" />
+        <label for="zip-code">Find pets by zipcode :</label>
+        <input type="text" placeholder="Zip code" name="zip-code" id="animalInfo" class="bold" />
+        <label for="miles">Search radius (miles):</label>
+        <input type="text" placeholder="Miles" name="miles" id="" class="bold" /> 
+        <p>
+          Is this your first pet?
+          <input type="radio" name="petConfirm" id="adopter-yes" />
+          <label for="adopter-yes">Yes</label>
+          <input type="radio" name="petConfirm" id="adopter-no" />
+          <label for="adopter-no">No</label>
+        </p>
+        <p>
+          <label for="checkbox">
+            click the search bottom!
+          </label>
+          <input type="checkbox" name="checkpoint1" id="bold" />
+        </p>
+        <button type="submit">
+          Search
+        </button>
+      </form>
+    </div>
 
 
+      
+  </main>
     
   
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/@petfinder/petfinder-js/dist/petfinder.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js" integrity="sha512-m2PhLxj2N91eYrIGU2cmIu2d0SkaE4A14bCjVb9zykvp6WtsdriFCiXQ/8Hdj0kssUB/Nz0dMBcoLsJkSCto0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="js/script.js"></script>
   </body>
