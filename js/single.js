@@ -178,8 +178,14 @@ var getInfo = function(token){
                     // RIGHT SIDE STATS
                     var descriptionEl = document.createElement("div");
                     descriptionEl.classList=("col s12");
-                    descriptionEl.innerHTML=("<h4 class=''>"+data.animal.description+"</h4>");
-                    mainRightEl.appendChild(descriptionEl);
+                        if(data.animal.description){
+                        descriptionEl.innerHTML=("<h4 class=''>"+data.animal.description+"</h4>");
+                        mainRightEl.appendChild(descriptionEl);
+                        };
+
+
+
+
 
                     animalInfoEl.appendChild(photoRowEl);
                     animalInfoEl.appendChild(breedLocationRow);
