@@ -23,7 +23,6 @@
   </header>
 
   <input id="breed" type="text" placeholder="breed"> 
-
   <main id="animalInfo" class="row">
 
     <div class="container"> 
@@ -31,13 +30,22 @@
       <p class="green-text darken-5 bold  center-align">search for your favorite pet today!</p>
       <form>
         <label type="text">Enter pet type </label>
-        <input type="text" placeholder="Type" name="petType" id="petType" class="nav-wrapper green darken-2"/>
+        <input type="text" placeholder="Type" name="petType" id="pet-type-input" class="nav-wrapper green darken-2"/>
         <label for="breed">Enter breed </label>
-        <input type="text" placeholder="Breed" name="breed" id="animalInfo" class="nav-wrapper green darken-2" />
+        <input type="text" placeholder="Breed" name="breed" id="pet-breed-input" class="nav-wrapper green darken-2" />
         <label for="Age">Age </label>
-        <input type="text" placeholder="Age" name="age" id="animalInfo" class="nav-wrapper green darken-2" />
-        <label for="size">Size</label>
-        <input type="text" placeholder="size" name="size" id="animalInfo" class="nav-wrapper green darken-2" />
+        <input class='dropdown-trigger btn' href='#' data-target='dropdown1'
+         placeholder="select Age" name="age" id="pet-age-input" />
+          <ul id='dropdown1' class='dropdown-content'>
+          <li><a href="#!">one</a></li>
+          <li><a href="#!">two</a></li>
+          <li class="divider" tabindex="-1"></li>
+          <li><a href="#!">three</a></li>
+          <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+          <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+          </ul>
+        <label for="size">Size</label> 
+        <input type="text" placeholder="size" name="size" id="pet-size" class="nav-wrapper green darken-2" />
         <label for="zip-code">Find pets by zipcode </label>
         <input type="text" placeholder="Zip code" name="zip-code" id="animalInfo" class="nav-wrapper green darken-2" />
         <label for="miles">Search radius (miles)</label>
@@ -60,8 +68,7 @@
       </form>
     </div>
 
-
-      
+  <input id="breed" type="text" placeholder="breed">  
   </main>
     
   
