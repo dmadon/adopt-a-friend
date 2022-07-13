@@ -32,6 +32,10 @@
 .bold{
     font-weight: bold;
 }
+.green-gradient{
+    background: rgb(102,187,106);
+    background: linear-gradient(90deg, rgba(102,187,106,1) 0%, rgba(76,175,80,1) 29%, rgba(56,142,60,1) 100%);
+}
 /* remove margin from the animalCardName <p> tag because it was taking up too much vertical space on the card */
 .animalCardName{
     margin: 0;
@@ -48,5 +52,14 @@
 #brand, #link1{
     padding:0 2rem;
 }
+.multi-photo-img{
+    min-height: 300px;
+    max-height: 300px;
+    padding: 10px;
+}
+h4{
+    padding-left: 10px;
+}
+
 
 
