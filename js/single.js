@@ -2,6 +2,46 @@ var pf = new petfinder.Client({apiKey: "iRFrneB2mkJOOzVLPMTPpShKXk7easKfumf7IM75
 
 var animalInfoEl = document.querySelector("#animalInfo");
 var breedInputEl = document.querySelector("#breed");
+var aboutPetTitleEl = document.querySelector("#page-title");
+var mainLeftEl = document.querySelector("#main-left");
+var mainRightEl = document.querySelector("#main-right");
+
+
+// THIS FUNCTION GETS THE ACCESS TOKEN FOR THE SESSION AND SAVES IT TO A VARIABLE CALLED "TOKEN"
+var authorize = function(nextFunction){
+    pf.authenticate()
+        .then(resp => {
+        var token = resp.data.access_token;
+        nextFunction(token);
+    });    
+}
+
+// THIS FUNCTION CALLS ANIMAL API FOR BREED INFO
+var name = "poodle"
+$.ajax({
+    method: 'GET',
+    url: 'https://api.api-ninjas.com/v1/animals?name=' + name,
+    headers: { 'X-Api-Key': 'WUvIlMP9Lh6jH9iFMTl96g==MDmtTRZar9IKEKcd'},
+    contentType: 'application/json',
+    success: function(result) {
+        console.log(result);
+    },
+    error: function ajaxError(jqXHR) {
+        console.error('Error: ', jqXHR.responseText);
+    }
+});
+
+//DISPLAY BREED INFO
+function displayBreed(result){
+    const breed = results.animal[0];
+    const breedDiv = document.getElementById("PetInfo");
+    const breedName = breed.strAnimal;
+    const heading = document.createElement("h1");
+    heading.innerHTML = breedName;
+    breedDiv.appendChild(heading);
+    const breedName = breed.strAnimal;
+}
+
 
 
 
@@ -16,13 +56,7 @@ var authorize = function(nextFunction){
 
 // THIS FUNCTION MAKES A CALL TO THE PETFINDER API AND DISPLAYS ANIMALS THAT MATCH THE SEARCH CRITERIA SPECIFIED BY THE USER 
 var getInfo = function(token){
-    // remove any animal cards that were already on the page from the previous search
-    if(document.getElementsByClassName("animal-card")){
-        document.querySelectorAll(".animal-card").forEach(function(a){
-            a.remove()
-          })
-        }
-
+   
     var animalId=""
     
     var getAnimalId = function(){
@@ -31,14 +65,13 @@ var getInfo = function(token){
         var id = queryString.split("=")[1];
         animalId=id;
     }
-
     getAnimalId();
 
     
 
     console.log(animalId);
 
-// for(i=0;i<favArray.length;i++){
+
     var queryURL = "https://api.petfinder.com/v2/animals/"+animalId;
 
     fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
@@ -46,123 +79,158 @@ var getInfo = function(token){
             if(response.ok){
                 response.json().then(function(data){
                     console.log(data);
-                    // for(i=0; i<data.animal.length; i++){
+
+                    // ANIMAL PAGE TITLE
+                    var petPageTitleEl = document.createElement("h1");
+                    petPageTitleEl.classList=("green-text darken-5 bold center-align");
+                    petPageTitleEl.id=("about-me");
+                    petPageTitleEl.textContent=("About "+data.animal.name);
+                    aboutPetTitleEl.appendChild(petPageTitleEl);
+
+
+                   
                         
-                        // ANIMAL CARD HOLDER COLUMN
-                        var cardHolder = document.createElement("div");
-                        cardHolder.classList=("col s12 m6 l4 ");
+                    // ANIMAL PHOTO ROW
+                    var photoRowEl = document.createElement("div");
+                    photoRowEl.classList=("row center-align grey lighten-3");
+
+                    
+                    
+                    // LOOP THROUGH ANIMAL PHOTOS AND APPEND THEM TO THE PHOTO ROW
+                    for(i=0;i<data.animal.photos.length;i++){
                         
-                        // CREATE ANIMAL CARD
-                        var animalCard = document.createElement("div");
-                        animalCard.id=(data.animal.id);
-                        animalCard.classList=("card horizontal animal-card border");
-                            
-                        // INSERT ANIMAL PHOTO ON LEFT SIDE OF CARD
+                            var animalPhoto = document.createElement("img");
+                            animalPhoto.classList=("carousel-item col-4 multi-photo-img center-align");
+                            animalPhoto.src=(data.animal.photos[i].medium);
+                            photoRowEl.appendChild(animalPhoto);
+                    }
 
-                        // container that holds the photo, set to a fixed width and height in style.css
-                        var photoContainer = document.createElement("div");
-                        photoContainer.classList=("card-image justify-content-center border-right");
-                        photoContainer.id=("photoContainer");
-
-                        // animal photo to append to the photo container
-                        var primPhoto = document.createElement("img");
-                        primPhoto.classList=("card-image  ");
-                            if(data.animal.primary_photo_cropped){
-                                var thumbnail = data.animal.primary_photo_cropped.small;
-                            }
-                            else{
-                                var thumbnail = "./images/paw-heart-gray-padded.png";
-                            }
-                        primPhoto.src=(thumbnail);
-                        primPhoto.height=(180);
-                        photoContainer.appendChild(primPhoto);    
-                        
-                        animalCard.appendChild(photoContainer);
-
-
-                        // INSERT ANIMAL INFO ON RIGHT SIDE OF CARD
-
-                        // container that holds the two div elements on the right side of the card
-                        var rightSide = document.createElement("div");
-                        rightSide.classList=("card-stacked");
-                        
-                            // first div on right side of card: this is the green header on the animal card that contains the animal's name
-                            var nameWrapper = document.createElement("div");
-                            nameWrapper.classList=("card-title green darken-2 white-text center-align border-bottom");
-
-                                // animal name that appears inside the green header
-                                var petName = document.createElement("p");
-                                petName.classList=("animalCardName bold");
-                                petName.textContent=(data.animal.name);
-                                nameWrapper.appendChild(petName);
-
-                                var savFav = document.createElement("button");
-                                savFav.innerHTML=("<i class='material-icons favBtn' data-fav-id="+data.animal.id+">favorite_border</i>")
-                                savFav.classList=("btn-floating btn-medium waves-effect waves-light grey right halfway-fab");
-                                nameWrapper.appendChild(savFav);
-
-                                                            
-                            // second div on right side of card: this contains the animal info below the animal's name
-                            var cardContent = document.createElement("div");
-                            cardContent.classList=("card-content");
-
-                                if(data.animal.breeds.secondary){
-                                    var secondaryBreed = (", "+data.animal.breeds.secondary);
-                                }
-                                else {
-                                    var secondaryBreed = ("");
-                                }
-
-                                var petBreed = document.createElement("p");
-                                petBreed.classList=(" ");
-                                petBreed.textContent=("Breed(s): "+data.animal.breeds.primary+secondaryBreed);
-                                cardContent.appendChild(petBreed);
-
-                                var petGender = document.createElement("p");
-                                petGender.classList=(" ");
-                                petGender.textContent=("Gender: "+data.animal.gender);
-                                cardContent.appendChild(petGender);
-
-                                var petAge = document.createElement("p");
-                                petAge.classList=(" ");
-                                petAge.textContent=("Age group: "+data.animal.age);
-                                cardContent.appendChild(petAge);
-
-                                var petLocation = document.createElement("p");
-                                petLocation.classList=(" ");
-                                petLocation.textContent=("Location: "+data.animal.contact.address.city+", "+data.animal.contact.address.state);
-                                cardContent.appendChild(petLocation);
-
-                        rightSide.appendChild(nameWrapper);    
-                        
-                        rightSide.appendChild(cardContent);
-
-                        animalCard.appendChild(rightSide);
-
-                        cardHolder.appendChild(animalCard);
-
-                        animalInfoEl.appendChild(cardHolder);
 
                         
+                    // BREED AND LOCATION ROW UNDER PHOTO ROW
+
+                    if(data.animal.breeds.secondary){
+                        var secondaryBreed = (", "+data.animal.breeds.secondary);
+                    }
+                    else {
+                        var secondaryBreed = ("");
+                    }
+
+                    var breedLocationRow=document.createElement("div");
+                    breedLocationRow.classList=("row green-gradient");
+                    breedLocationRow.id=("#breed-location-row");
+                    breedLocationRow.innerHTML=("<h2 class='bold white-text center'>"+data.animal.breeds.primary+secondaryBreed+" | "+data.animal.contact.address.city+", "+data.animal.contact.address.state+"</h2>");
+
+                    // LEFT SIDE STATS
+                    var typeEl = document.createElement("div");
+                    typeEl.classList=("col s12");
+                    typeEl.innerHTML=("<h4 class='green-text bold left'>Type: </h4><span><h4 class='left'>"+data.animal.type+"</h4><span>");
+                    mainLeftEl.appendChild(typeEl);
+
+                    var ageEl = document.createElement("div");
+                    ageEl.classList=("col s12");
+                    ageEl.innerHTML=("<h4 class='green-text bold left'>Age: </h4><span><h4 class='left'>"+data.animal.age+"</h4><span>");
+                    mainLeftEl.appendChild(ageEl);
+
+                    var genderEl = document.createElement("div");
+                    genderEl.classList=("col s12");
+                    genderEl.innerHTML=("<h4 class='green-text bold left'>Gender: </h4><span><h4 class='left'>"+data.animal.gender+"</h4><span>");
+                    mainLeftEl.appendChild(genderEl);
+
+                    var sizeEl = document.createElement("div");
+                    sizeEl.classList=("col s12");
+                    sizeEl.innerHTML=("<h4 class='green-text bold left'>Size: </h4><span><h4 class='left'>"+data.animal.size+"</h4><span>");
+                    mainLeftEl.appendChild(sizeEl);
+
+
+                    var spayNeuterEl = document.createElement("div");
+                    spayNeuterEl.classList=("col s12");
+                    
+                        var attrSpayNeuter=(JSON.stringify(data.animal.attributes.spayed_neutered));
+                        console.log(attrSpayNeuter);
+
+                        if(attrSpayNeuter === "true"){
+                            spayNeuterEl.innerHTML=("<h4 class='green-text bold left'>Spayed/Neutered: </h4><span><h4 class='left'>Yes</h4><span>");
+                        }
+                        else{
+                            spayNeuterEl.innerHTML=("<h4 class='green-text bold left'>Spayed/Neutered: </h4><span><h4 class='left'>No</h4><span>");
+                        }
+                        mainLeftEl.appendChild(spayNeuterEl);
+                    
+                    var houseTrainedEl = document.createElement("div");
+                    houseTrainedEl.classList=("col s12");
+                    
+                        var attrHouseTrained=(JSON.stringify(data.animal.attributes.house_trained));
+                        console.log(attrHouseTrained);
+
+                        if(attrHouseTrained === "true"){
+                            houseTrainedEl.innerHTML=("<h4 class='green-text bold left'>House Trained: </h4><span><h4 class='left'>Yes</h4><span>");
+                        }
+                        else{
+                            houseTrainedEl.innerHTML=("<h4 class='green-text bold left'>House Trained: </h4><span><h4 class='left'>No</h4><span>");
+                        }
+                        mainLeftEl.appendChild(houseTrainedEl);   
+                    
+                    var specialNeedsEl = document.createElement("div");
+                    specialNeedsEl.classList=("col s12");
+                    
+                        var attrSpecialNeeds=(JSON.stringify(data.animal.attributes.special_needs));
+                        console.log(attrSpecialNeeds);
+
+                        if(attrSpecialNeeds === "true"){
+                            specialNeedsEl.innerHTML=("<h4 class='green-text bold left'>Special Needs: </h4><span><h4 class='left'>Yes</h4><span>");
+                        }
+                        else{
+                            specialNeedsEl.innerHTML=("<h4 class='green-text bold left'>Special Needs: </h4><span><h4 class='left'>No</h4><span>");
+                        }
+                        mainLeftEl.appendChild(specialNeedsEl);
+
+                    var shotsCurrentEl = document.createElement("div");
+                    shotsCurrentEl.classList=("col s12");
+                    
+                        var attrShotsCurrent=(JSON.stringify(data.animal.attributes.shots_current));
+                        console.log(attrShotsCurrent);
+
+                        if(attrShotsCurrent === "true"){
+                            shotsCurrentEl.innerHTML=("<h4 class='green-text bold left'>Shots Current: </h4><span><h4 class='left'>Yes</h4><span>");
+                        }
+                        else{
+                            shotsCurrentEl.innerHTML=("<h4 class='green-text bold left'>Shots Current: </h4><span><h4 class='left'>No</h4><span>");
+                        }
+                        mainLeftEl.appendChild(shotsCurrentEl);
                         
-                        
+                    var declawedEl = document.createElement("div");
+                    declawedEl.classList=("col s12");
+
+                        var attrDeclawed=(JSON.stringify(data.animal.attributes.declawed));
+                        console.log(attrDeclawed);
+
+                        if(attrDeclawed === "true"){
+                            declawedEl.innerHTML=("<h4 class='green-text bold left'>Declawed: </h4><span><h4 class='left'>Yes</h4><span>");
+                            mainLeftEl.appendChild(declawedEl);
+                        }
 
 
+                    // RIGHT SIDE STATS
+                    var descriptionEl = document.createElement("div");
+                    descriptionEl.classList=("col s12");
+                    descriptionEl.innerHTML=("<h4 class=''>"+data.animal.description+"</h4>");
+                    mainRightEl.appendChild(descriptionEl);
 
-                    // }// end of for loop of animal data
+                    animalInfoEl.appendChild(photoRowEl);
+                    animalInfoEl.appendChild(breedLocationRow);
+                    
                     markFavs();
+                  
                 })
 
             }
 
         })
 
-    }
-// }// end of for loop of favorites
+}
 
 
-
-// breedInputEl.addEventListener("change",authorize);
 authorize(getInfo);
 
 // SAVE PETS TO FAVORITES
@@ -244,3 +312,7 @@ var markFavs = function(){
 
 
 animalInfoEl.addEventListener("click", saveFavorite);
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.carousel');
+    var instances = M.Carousel.init(elems );
+  });
