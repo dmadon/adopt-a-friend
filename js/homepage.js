@@ -182,27 +182,27 @@ var getInfo = function(type,breed,age,size,zip,searchRadius,page){
 
             }// end of for loop of animal data
         
-     
-            var pages = apiResult.data.pagination.total_pages;
-            var currentPage = apiResult.data.pagination.current_page;
-            console.log(pages);
-            // var paginationLink =
+            // PAGINATION SECTION IS A WORK IN PROGRESS:
+            // var pages = apiResult.data.pagination.total_pages;
+            // var currentPage = apiResult.data.pagination.current_page;
+            // console.log(pages);
+            // // var paginationLink =
 
-            var paginationHolder = document.createElement("ul");
-            paginationHolder.classList=("pagination center");
+            // var paginationHolder = document.createElement("ul");
+            // paginationHolder.classList=("pagination center");
 
-                for(i=0;i<pages;i++){
-                    console.log(currentPage++);
-                    var pageNumberEl = document.createElement("li");
-                    pageNumberEl.id=(currentPage-1);
-                    pageNumberEl.classList=("page-item waves-effect")
-                    paginationHolder.appendChild(pageNumberEl);
-                }
+            //     for(i=0;i<pages;i++){
+            //         console.log(currentPage++);
+            //         var pageNumberEl = document.createElement("li");
+            //         pageNumberEl.id=(currentPage-1);
+            //         pageNumberEl.classList=("page-item waves-effect")
+            //         paginationHolder.appendChild(pageNumberEl);
+            //     }
 
            
 
 
-                paginationEl.appendChild(paginationHolder);
+            //     paginationEl.appendChild(paginationHolder);
                 
 
         markFavs();
