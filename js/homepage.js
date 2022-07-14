@@ -70,111 +70,122 @@ var getInfo = function(type,breed,age,size,zip,searchRadius){
     getData();
     
     var makeCards = function(apiResult){
+
+        if(apiResult.ok){
            
-        for(i=0; i<apiResult.data.animals.length; i++){
-                        
-            // ANIMAL CARD HOLDER COLUMN
-            var cardHolder = document.createElement("div");
-            cardHolder.classList=("col s12 m6 l4 ");
-            
-            // CREATE ANIMAL CARD
-            var animalCard = document.createElement("div");
-            animalCard.id=(apiResult.data.animals[i].id);
-            animalCard.classList=("card horizontal animal-card border hoverable");
+            for(i=0; i<apiResult.data.animals.length; i++){
+                            
+                // ANIMAL CARD HOLDER COLUMN
+                var cardHolder = document.createElement("div");
+                cardHolder.classList=("col s12 m6 l4 ");
                 
-            // INSERT ANIMAL PHOTO ON LEFT SIDE OF CARD
+                // CREATE ANIMAL CARD
+                var animalCard = document.createElement("div");
+                animalCard.id=(apiResult.data.animals[i].id);
+                animalCard.classList=("card horizontal animal-card border hoverable");
+                    
+                // INSERT ANIMAL PHOTO ON LEFT SIDE OF CARD
 
-            // container that holds the photo, set to a fixed width and height in style.css
-            var photoContainer = document.createElement("a");
-            photoContainer.classList=("card-image justify-content-center border-right");
-            photoContainer.id=("photoContainer");
-            photoContainer.setAttribute("href", "./single.html?animalId="+apiResult.data.animals[i].id);
+                // container that holds the photo, set to a fixed width and height in style.css
+                var photoContainer = document.createElement("a");
+                photoContainer.classList=("card-image justify-content-center border-right");
+                photoContainer.id=("photoContainer");
+                photoContainer.setAttribute("href", "./single.html?animalId="+apiResult.data.animals[i].id);
 
-            // animal photo to append to the photo container
-            var primPhoto = document.createElement("img");
-                if(apiResult.data.animals[i].primary_photo_cropped){
-                    var thumbnail = apiResult.data.animals[i].primary_photo_cropped.small;
-                }
-                else{
-                    var thumbnail = "./images/paw-heart-gray-padded.png";
-                }
-            primPhoto.src=(thumbnail);
-            primPhoto.height=(180);
-            photoContainer.appendChild(primPhoto);    
-            
-            animalCard.appendChild(photoContainer);
-
-
-            // INSERT ANIMAL INFO ON RIGHT SIDE OF CARD
-
-            // container that holds the two div elements on the right side of the card
-            var rightSide = document.createElement("div");
-            rightSide.classList=("card-stacked");
+                // animal photo to append to the photo container
+                var primPhoto = document.createElement("img");
+                    if(apiResult.data.animals[i].primary_photo_cropped){
+                        var thumbnail = apiResult.data.animals[i].primary_photo_cropped.small;
+                    }
+                    else{
+                        var thumbnail = "./images/paw-heart-gray-padded.png";
+                    }
+                primPhoto.src=(thumbnail);
+                primPhoto.height=(180);
+                photoContainer.appendChild(primPhoto);    
                 
-                // first div on right side of card: this is the green header on the animal card that contains the animal's name
-                var nameWrapper = document.createElement("div");
-                nameWrapper.classList=("card-title green-gradient white-text center-align border-bottom");
+                animalCard.appendChild(photoContainer);
 
-                    // animal name that appears inside the green header
-                    var petName = document.createElement("p");
-                    petName.classList=("animalCardName bold");
-                    petName.textContent=(apiResult.data.animals[i].name);
-                    nameWrapper.appendChild(petName);
 
-                    var savFav = document.createElement("button");
-                    savFav.innerHTML=("<i class='material-icons favBtn' data-fav-id="+apiResult.data.animals[i].id+">favorite_border</i>")
-                    savFav.classList=("btn-floating btn-medium waves-effect waves-light grey right halfway-fab");
-                    nameWrapper.appendChild(savFav);
+                // INSERT ANIMAL INFO ON RIGHT SIDE OF CARD
 
-                                                
-                // second div on right side of card: this contains the animal info below the animal's name
-                var cardContent = document.createElement("div");
-                cardContent.classList=("card-content");
+                // container that holds the two div elements on the right side of the card
+                var rightSide = document.createElement("div");
+                rightSide.classList=("card-stacked");
+                    
+                    // first div on right side of card: this is the green header on the animal card that contains the animal's name
+                    var nameWrapper = document.createElement("div");
+                    nameWrapper.classList=("card-title green-gradient white-text center-align border-bottom");
 
-                    if(apiResult.data.animals[i].breeds.secondary){
-                        var secondaryBreed = (", "+apiResult.data.animals[i].breeds.secondary);
-                    }
-                    else {
-                        var secondaryBreed = ("");
-                    }
+                        // animal name that appears inside the green header
+                        var petName = document.createElement("p");
+                        petName.classList=("animalCardName bold");
+                        petName.textContent=(apiResult.data.animals[i].name);
+                        nameWrapper.appendChild(petName);
 
-                    var petBreed = document.createElement("p");
-                    petBreed.classList=(" ");
-                    petBreed.textContent=("Breed(s): "+apiResult.data.animals[i].breeds.primary+secondaryBreed);
-                    cardContent.appendChild(petBreed);
+                        var savFav = document.createElement("button");
+                        savFav.innerHTML=("<i class='material-icons favBtn' data-fav-id="+apiResult.data.animals[i].id+">favorite_border</i>")
+                        savFav.classList=("btn-floating btn-medium waves-effect waves-light grey right halfway-fab");
+                        nameWrapper.appendChild(savFav);
 
-                    var petGender = document.createElement("p");
-                    petGender.classList=(" ");
-                    petGender.textContent=("Gender: "+apiResult.data.animals[i].gender);
-                    cardContent.appendChild(petGender);
+                                                    
+                    // second div on right side of card: this contains the animal info below the animal's name
+                    var cardContent = document.createElement("div");
+                    cardContent.classList=("card-content");
 
-                    var petAge = document.createElement("p");
-                    petAge.classList=(" ");
-                    petAge.textContent=("Age group: "+apiResult.data.animals[i].age);
-                    cardContent.appendChild(petAge);
+                        if(apiResult.data.animals[i].breeds.secondary){
+                            var secondaryBreed = (", "+apiResult.data.animals[i].breeds.secondary);
+                        }
+                        else {
+                            var secondaryBreed = ("");
+                        }
 
-                    var petLocation = document.createElement("p");
-                    petLocation.classList=(" ");
-                    petLocation.textContent=("Location: "+apiResult.data.animals[i].contact.address.city+", "+apiResult.data.animals[i].contact.address.state);
-                    cardContent.appendChild(petLocation);
+                        var petBreed = document.createElement("p");
+                        petBreed.classList=(" ");
+                        petBreed.textContent=("Breed(s): "+apiResult.data.animals[i].breeds.primary+secondaryBreed);
+                        cardContent.appendChild(petBreed);
 
-            rightSide.appendChild(nameWrapper);    
-            
-            rightSide.appendChild(cardContent);
+                        var petGender = document.createElement("p");
+                        petGender.classList=(" ");
+                        petGender.textContent=("Gender: "+apiResult.data.animals[i].gender);
+                        cardContent.appendChild(petGender);
 
-            animalCard.appendChild(rightSide);
+                        var petAge = document.createElement("p");
+                        petAge.classList=(" ");
+                        petAge.textContent=("Age group: "+apiResult.data.animals[i].age);
+                        cardContent.appendChild(petAge);
 
-            cardHolder.appendChild(animalCard);
+                        var petLocation = document.createElement("p");
+                        petLocation.classList=(" ");
+                        petLocation.textContent=("Location: "+apiResult.data.animals[i].contact.address.city+", "+apiResult.data.animals[i].contact.address.state);
+                        cardContent.appendChild(petLocation);
 
-            animalInfoEl.appendChild(cardHolder);
+                rightSide.appendChild(nameWrapper);    
+                
+                rightSide.appendChild(cardContent);
 
-        }// end of for loop of animal data
+                animalCard.appendChild(rightSide);
+
+                cardHolder.appendChild(animalCard);
+
+                animalInfoEl.appendChild(cardHolder);
+
+            }// end of for loop of animal data
+        }
+        else{
+            var noPetsMsg = document.createElement("h1");
+            noPetsMsg.textContent=("No pets matched your search. Please try again.")
+            animalInfoEl.appendChild.noPetsMsg;
+        };
+
+
 
         markFavs();
 
     }// end of makeCards function
 
 }
+
 
 //     })
 
@@ -225,7 +236,7 @@ var saveFavorite = function(event){
                 localStorage.setItem("storedFavorites",JSON.stringify(favArray));
                 return;
             } 
-    } 
+        } 
 }
 
 
@@ -239,7 +250,7 @@ var loadFavorites = function(){
     if(storedFavs){
 
         favArray=storedFavs;
-        console.log(favArray);
+
     }
 };
 

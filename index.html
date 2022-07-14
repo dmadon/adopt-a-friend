@@ -9,11 +9,13 @@
     <link rel="stylesheet" href="./css/style.css">
   </head>
 <body>
+
+
  
   
   <header class="green darken-2">
     <nav>
-      <div class="nav-wrapper green darken-2">
+      <div class="nav-wrapper green darken-2 z-depth-3">
         <a id="brand" href="./index.html" class="brand-logo bold">Adopt-a-Friend</a>
         <ul id="nav-mobile" class="right">
           <li><a id="link1" class="bold" href="./favorites.html">My Favorites</a></li>
@@ -21,7 +23,9 @@
       </div>
     </nav>
   </header>
-
+  <div class="hero container">
+    <img id="hero-img" src="./images/dogsAndCats.jpg">
+  </div>
 
 
   <main id="animalInfo" class="row">
@@ -30,19 +34,20 @@
       <h3>Find your Pet</h3>
       <p>search for your favorite pet today!</p>
       <form>
-        <label for="petType">Enter pet type :</label>
-        <input type="text" placeholder="Type" name="petType" id="typeInput" class="bold" />
-        <label for="breed">Enter breed:</label>
-        <input type="text" placeholder="Breed" name="breed" id="breedInput" class="bold" />
-        <label for="Age">Age:</label>
-        <input type="text" placeholder="Age" name="age" id="ageInput" class="bold" />
-        <label for="size">Size:</label>
-        <input type="text" placeholder="size" name="size" id="sizeInput" class="bold" />
-        <label for="zip-code">Find pets by zipcode :</label>
-        <input type="text" placeholder="Zip code" name="zip-code" id="zipInput" class="bold" />
-        <label for="miles">Search radius (miles):</label>
-        <input type="text" placeholder="Miles" name="miles" id="radiusInput" class="bold" /> 
-        <p>
+          <label for="petType"><h5 class="input-label bold green-text text-darken-2">Enter pet type:</h5></label>
+          <input type="text" placeholder="Type" name="petType" id="typeInput" class="bold" />
+          <label for="breed"><h5 class="input-label bold green-text text-darken-2">Enter breed:</h5></label>
+          <input type="text" placeholder="Breed" name="breed" id="breedInput" class="bold" />
+          <label for="Age"><h5 class="input-label bold green-text text-darken-2">Age:</h5></label>
+          <input type="text" placeholder="Age" name="age" id="ageInput" class="bold" />
+          <label for="size"><h5 class="input-label bold green-text text-darken-2">Size:</h5></label>
+          <input type="text" placeholder="size" name="size" id="sizeInput" class="bold" />
+          <label for="zip-code"><h5 class="input-label bold green-text text-darken-2">Find pets by zipcode:</h5></label>
+          <input type="text" placeholder="Zip code" name="zip-code" id="zipInput" class="bold" />
+          <label for="miles"><h5 class="input-label bold green-text text-darken-2">Search radius (miles):</h5></label>
+          <input type="text" placeholder="Miles" name="miles" id="radiusInput" class="bold" /> 
+
+        <!-- <p>
           is this your first pet?
           <input type="radio" name="petConfirm" id="adopter-yes" />
           <label for="adopter-yes">Yes</label>
@@ -54,7 +59,7 @@
             click the search button!
           </label>
           <input type="checkbox" name="checkpoint1" id="bold" />
-        </p>
+        </p> -->
         <button type="submit" id="search-btn" class="btn-large grey waves-effect waves-light bold hoverable">
           Search
         </button>
