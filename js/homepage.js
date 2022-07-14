@@ -41,7 +41,7 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
                     // CREATE ANIMAL CARD
                     var animalCard = document.createElement("div");
                     animalCard.id=(data.animals[i].id);
-                    animalCard.classList=("card horizontal animal-card border");
+                    animalCard.classList=("card horizontal animal-card border hoverable");
                         
                     // INSERT ANIMAL PHOTO ON LEFT SIDE OF CARD
 
@@ -53,7 +53,6 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
 
                     // animal photo to append to the photo container
                     var primPhoto = document.createElement("img");
-                    primPhoto.classList=("card-image  ");
                         if(data.animals[i].primary_photo_cropped){
                             var thumbnail = data.animals[i].primary_photo_cropped.small;
                         }

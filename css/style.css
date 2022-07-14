@@ -36,6 +36,9 @@
     background: rgb(102,187,106);
     background: linear-gradient(90deg, rgba(102,187,106,1) 0%, rgba(76,175,80,1) 29%, rgba(56,142,60,1) 100%);
 }
+.block{
+    display: block;
+}
 /* remove margin from the animalCardName <p> tag because it was taking up too much vertical space on the card */
 .animalCardName{
     margin: 0;
@@ -57,9 +60,30 @@
     max-height: 300px;
     padding: 10px;
 }
-h4{
+h4,h5{
     padding-left: 10px;
 }
-
-
-
+.contact{
+    font-size:1.64rem;
+    margin-top: 1.09333rem;
+    margin-right: 0px;
+    /* margin-bottom: 0.656rem; */
+    margin-left: 0px;
+    font-size: 1.64rem;
+    line-height: 110%;
+    
+}
+#main-right, #main-left{
+    display: flex;
+    flex-direction: column;
+}
+#mapWrapper{
+    height: 500px;
+    width: 500px;
+    margin: 0 auto;
+}
+#mapEmbed{
+    height: 100%;
+    width: 100%;
+}
+ 
