@@ -71,7 +71,7 @@ var getInfo = function(type,breed,age,size,zip,searchRadius){
     
     var makeCards = function(apiResult){
 
-        if(apiResult.ok){
+        
            
             for(i=0; i<apiResult.data.animals.length; i++){
                             
@@ -171,12 +171,8 @@ var getInfo = function(type,breed,age,size,zip,searchRadius){
                 animalInfoEl.appendChild(cardHolder);
 
             }// end of for loop of animal data
-        }
-        else{
-            var noPetsMsg = document.createElement("h1");
-            noPetsMsg.textContent=("No pets matched your search. Please try again.")
-            animalInfoEl.appendChild.noPetsMsg;
-        };
+        
+     
 
 
 
