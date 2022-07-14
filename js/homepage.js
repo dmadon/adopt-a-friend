@@ -1,19 +1,69 @@
 var pf = new petfinder.Client({apiKey: "iRFrneB2mkJOOzVLPMTPpShKXk7easKfumf7IM75Xnwba8w8tq", secret: "sEVE2RVHpkQuVbJkDVdwWZQDMCoyNgYk5EGdVvqP"});
 
 var animalInfoEl = document.querySelector("#animalInfo");
-var breedInputEl = document.querySelector("#breed");
+var typeInputEl = document.querySelector("#typeInput");
+var breedInputEl = document.querySelector("#breedInput");
+var ageInputEl = document.querySelector("#ageInput");
+var sizeInputEl = document.querySelector("#sizeInput");
+var zipInputEl = document.querySelector("#zipInput");
+var radiusInputEl = document.querySelector("#radiusInput");
+var searchBtnEl = document.querySelector("#search-btn");
 
 // THIS FUNCTION GETS THE ACCESS TOKEN FOR THE SESSION AND SAVES IT TO A VARIABLE CALLED "TOKEN"
-var authorize = function(nextFunction){
+var authorize = function(type,breed,age,size,zip,searchRadius){
+    
     pf.authenticate()
         .then(resp => {
-        var token = resp.data.access_token;
-        nextFunction(token);
+            console.log(resp.data);
+            var token = resp.data.access_token;
+        getInfo(token,type,breed,age,size,zip,searchRadius);
     });    
 }
 
+
+
+var getSearchCriteria = function(event){
+    event.preventDefault();
+
+    var type = typeInputEl.value.trim();
+    console.log(type);
+
+    var breed = breedInputEl.value.trim();
+    console.log(breed);
+
+    var age = ageInputEl.value.trim();
+    console.log(age);
+
+    var size = sizeInputEl.value.trim();
+    console.log(size);
+
+    var zip = zipInputEl.value.trim();
+    console.log(zip);
+
+    var searchRadius = radiusInputEl.value.trim();
+    console.log(searchRadius);
+
+    authorize(type,breed,age,size,zip,searchRadius);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // THIS FUNCTION MAKES A CALL TO THE PETFINDER API AND DISPLAYS ANIMALS THAT MATCH THE SEARCH CRITERIA SPECIFIED BY THE USER 
-var getInfo = function(token){
+var getInfo = function(token,type,breed,age,size,zip,searchRadius){
     // remove any animal cards that were already on the page from the previous search
     if(document.getElementsByClassName("animal-card")){
         document.querySelectorAll(".animal-card").forEach(function(a){
@@ -21,11 +71,11 @@ var getInfo = function(token){
           })
         }
 
+        console.log(token);
 
-// var animalbreed = breedInputEl.value; 
-var animalbreed = "boxer";
 
-var queryURL = "https://api.petfinder.com/v2/animals?breed="+animalbreed;
+
+var queryURL = "https://api.petfinder.com/v2/animals?type="+type+"&breed="+breed+"&age="+age+"&size="+size+"&location="+zip+"&distance="+searchRadius;
 
 fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
     .then(function(response){
@@ -145,8 +195,7 @@ fetch(queryURL,{headers:{"Authorization":"Bearer "+token}})
 
 }
 
-// breedInputEl.addEventListener("change",authorize);
-authorize(getInfo);
+
 
 // SAVE PETS TO FAVORITES
 var favArray = [];
@@ -227,3 +276,4 @@ var markFavs = function(){
 
 
 animalInfoEl.addEventListener("click", saveFavorite);
+searchBtnEl.addEventListener("click", getSearchCriteria);

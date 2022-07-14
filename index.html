@@ -33,15 +33,15 @@
         <label for="petType">Enter pet type :</label>
         <input type="text" placeholder="Type" name="petType" id="typeInput" class="bold" />
         <label for="breed">Enter breed:</label>
-        <input type="text" placeholder="Breed" name="breed" id="animalInfo" class="bold" />
+        <input type="text" placeholder="Breed" name="breed" id="breedInput" class="bold" />
         <label for="Age">Age:</label>
-        <input type="text" placeholder="Age" name="age" id="animalInfo" class="bold" />
+        <input type="text" placeholder="Age" name="age" id="ageInput" class="bold" />
         <label for="size">Size:</label>
-        <input type="text" placeholder="size" name="size" id="animalInfo" class="bold" />
+        <input type="text" placeholder="size" name="size" id="sizeInput" class="bold" />
         <label for="zip-code">Find pets by zipcode :</label>
-        <input type="text" placeholder="Zip code" name="zip-code" id="animalInfo" class="bold" />
-        <label for="miles">Searcg radius (miles):</label>
-        <input type="text" placeholder="Miles" name="miles" id="" class="bold" /> 
+        <input type="text" placeholder="Zip code" name="zip-code" id="zipInput" class="bold" />
+        <label for="miles">Search radius (miles):</label>
+        <input type="text" placeholder="Miles" name="miles" id="radiusInput" class="bold" /> 
         <p>
           is this your first pet?
           <input type="radio" name="petConfirm" id="adopter-yes" />
@@ -51,11 +51,11 @@
         </p>
         <p>
           <label for="checkbox">
-            click the search bottom!
+            click the search button!
           </label>
           <input type="checkbox" name="checkpoint1" id="bold" />
         </p>
-        <button type="submit">
+        <button type="submit" id="search-btn" class="btn-large grey waves-effect waves-light bold hoverable">
           Search
         </button>
       </form>
