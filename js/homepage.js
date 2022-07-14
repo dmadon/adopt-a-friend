@@ -8,12 +8,12 @@ var sizeInputEl = document.querySelector("#sizeInput");
 var zipInputEl = document.querySelector("#zipInput");
 var radiusInputEl = document.querySelector("#radiusInput");
 var searchBtnEl = document.querySelector("#search-btn");
+var paginationEl = document.querySelector("#pagination");
 
 
 
 
-
-var getSearchCriteria = function(event){
+var getSearchCriteria = function(event,page){
     event.preventDefault();
 
     var type = typeInputEl.value.trim();
@@ -34,17 +34,25 @@ var getSearchCriteria = function(event){
     var searchRadius = radiusInputEl.value.trim();
     console.log(searchRadius);
 
-    getInfo(type,breed,age,size,zip,searchRadius);
+    if(page){
+        var page = page;
+    }
+    else{
+        var page = 1;
+    }
+    console.log(page);
+
+    getInfo(type,breed,age,size,zip,searchRadius,page);
 
 }// end of get search criteria
 
 
 
 // THIS FUNCTION MAKES A CALL TO THE PETFINDER API AND DISPLAYS ANIMALS THAT MATCH THE SEARCH CRITERIA SPECIFIED BY THE USER 
-var getInfo = function(type,breed,age,size,zip,searchRadius){
+var getInfo = function(type,breed,age,size,zip,searchRadius,page){
     // remove any animal cards that were already on the page from the previous search
-    if(document.getElementsByClassName("animal-card")){
-        document.querySelectorAll(".animal-card").forEach(function(a){
+    if(document.getElementsByClassName("card-holder")){
+        document.querySelectorAll(".card-holder").forEach(function(a){
             a.remove()
           })
         }
@@ -56,7 +64,8 @@ var getInfo = function(type,breed,age,size,zip,searchRadius){
         age: age,
         size: size,
         location: zip,
-        distance: searchRadius
+        distance: searchRadius,
+        page: page
     })
 
 
@@ -77,7 +86,7 @@ var getInfo = function(type,breed,age,size,zip,searchRadius){
                             
                 // ANIMAL CARD HOLDER COLUMN
                 var cardHolder = document.createElement("div");
-                cardHolder.classList=("col s12 m6 l4 ");
+                cardHolder.classList=("col s12 m6 l4 card-holder");
                 
                 // CREATE ANIMAL CARD
                 var animalCard = document.createElement("div");
@@ -170,15 +179,37 @@ var getInfo = function(type,breed,age,size,zip,searchRadius){
 
                 animalInfoEl.appendChild(cardHolder);
 
+
             }// end of for loop of animal data
         
      
+            var pages = apiResult.data.pagination.total_pages;
+            var currentPage = apiResult.data.pagination.current_page;
+            console.log(pages);
+            // var paginationLink =
+
+            var paginationHolder = document.createElement("ul");
+            paginationHolder.classList=("pagination center");
+
+                for(i=0;i<pages;i++){
+                    console.log(currentPage++);
+                    var pageNumberEl = document.createElement("li");
+                    pageNumberEl.id=(currentPage-1);
+                    pageNumberEl.classList=("page-item waves-effect")
+                    paginationHolder.appendChild(pageNumberEl);
+                }
+
+           
 
 
+                paginationEl.appendChild(paginationHolder);
+                
 
         markFavs();
 
     }// end of makeCards function
+
+    
 
 }
 
