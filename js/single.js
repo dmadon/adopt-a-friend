@@ -427,7 +427,7 @@ var loadFavorites = function(){
     if(storedFavs){
 
         favArray=storedFavs;
-        console.log(favArray);
+
     }
 };
 
