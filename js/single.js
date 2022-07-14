@@ -5,6 +5,7 @@ var breedInputEl = document.querySelector("#breed");
 var aboutPetTitleEl = document.querySelector("#page-title");
 var mainLeftEl = document.querySelector("#main-left");
 var mainRightEl = document.querySelector("#main-right");
+var mainBottomEl = document.querySelector("main-bottom")
 
 
 // THIS FUNCTION GETS THE ACCESS TOKEN FOR THE SESSION AND SAVES IT TO A VARIABLE CALLED "TOKEN"
@@ -17,6 +18,7 @@ var authorize = function(nextFunction){
 }
 
 // THIS FUNCTION CALLS ANIMAL API FOR BREED INFO
+
 var name = "poodle"
 $.ajax({
     method: 'GET',
@@ -29,20 +31,15 @@ $.ajax({
     error: function ajaxError(jqXHR) {
         console.error('Error: ', jqXHR.responseText);
     }
-});
 
-//DISPLAY BREED INFO
-function displayBreed(result){
-    const breed = results.animal[0];
-    const breedDiv = document.getElementById("PetInfo");
-    const breedName = breed.strAnimal;
-    const heading = document.createElement("h1");
-    heading.innerHTML = breedName;
-    breedDiv.appendChild(heading);
-    const breedName = breed.strAnimal;
-}
-
-
+                //Animal Breed info
+                petinfo = document.createElement("div");
+                petInfo.classList=("row s12");
+                petInfo.innerHTML=("<h4 class=''>"+result.[0].characteristics.lifespan+"<h4>");
+                mainBottomEl.appendChild(petInfo);
+    });
+  
+        
 
 
 // THIS FUNCTION GETS THE ACCESS TOKEN FOR THE SESSION AND SAVES IT TO A VARIABLE CALLED "TOKEN"
@@ -228,7 +225,7 @@ var getInfo = function(token){
 
         })
 
-}
+    }
 
 
 authorize(getInfo);
@@ -315,4 +312,4 @@ animalInfoEl.addEventListener("click", saveFavorite);
 document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.carousel');
     var instances = M.Carousel.init(elems );
-  });
+});
