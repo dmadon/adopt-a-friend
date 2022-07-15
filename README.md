@@ -37,6 +37,10 @@ This project provides the functionality for pet-seekers to search for pets in th
 
 ## Preview
 
+![image](https://user-images.githubusercontent.com/99852346/179131190-2313af8e-b1c7-4480-a9d6-4c82bed302d3.png)
+
+
+
 
 ## Links
 
