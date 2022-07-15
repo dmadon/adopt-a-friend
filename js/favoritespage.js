@@ -77,7 +77,7 @@ for(i=0;i<favArray.length;i++){
                         
                             // first div on right side of card: this is the green header on the animal card that contains the animal's name
                             var nameWrapper = document.createElement("div");
-                            nameWrapper.classList=("card-title green darken-2 white-text center-align border-bottom");
+                            nameWrapper.classList=("card-title green-gradient white-text center-align border-bottom");
 
                                 // animal name that appears inside the green header
                                 var petName = document.createElement("p");

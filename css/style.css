@@ -32,6 +32,13 @@
 .bold{
     font-weight: bold;
 }
+.green-gradient{
+    background: rgb(102,187,106);
+    background: linear-gradient(90deg, rgba(102,187,106,1) 0%, rgba(76,175,80,1) 29%, rgba(56,142,60,1) 100%);
+}
+.block{
+    display: block;
+}
 /* remove margin from the animalCardName <p> tag because it was taking up too much vertical space on the card */
 .animalCardName{
     margin: 0;
@@ -48,6 +55,52 @@
 #brand, #link1{
     padding:0 2rem;
 }
+<<<<<<< HEAD
 .white-text {
     color: #FFFFFF !important;
+=======
+.multi-photo-img{
+    min-height: 300px;
+    max-height: 300px;
+    padding: 10px;
+}
+h4,h5{
+    padding-left: 10px;
+}
+.contact{
+    font-size:1.64rem;
+    margin-top: 1.09333rem;
+    margin-right: 0px;
+    /* margin-bottom: 0.656rem; */
+    margin-left: 0px;
+    font-size: 1.64rem;
+    line-height: 110%;
+    
+}
+#main-right, #main-left{
+    display: flex;
+    flex-direction: column;
+}
+#mapWrapper{
+    height: 500px;
+    width: 500px;
+    margin: 0 auto;
+}
+#mapEmbed{
+    height: 100%;
+    width: 100%;
+}
+#hero-img{
+    max-width: 100%;
+}
+.input-label{
+    padding:0;
+}
+input[type='text']:focus {
+    border-bottom: 1px solid #388e3c!important;
+    box-shadow: 0 1px 0 0 #388e3c;
+}
+#search-btn:hover{
+    background-color: #388e3c!important;
+>>>>>>> 52136463866009e7a781c3d95241d60edb8c99b3
 }
