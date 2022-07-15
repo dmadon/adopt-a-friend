@@ -37,6 +37,16 @@ This project provides the functionality for pet-seekers to search for pets in th
 
 ## Preview
 
+![homepage-preview](https://user-images.githubusercontent.com/99852346/179131528-5a54b14d-89f7-4278-af83-fea1c737dcc4.png)
+
+![preview-animal-cards](https://user-images.githubusercontent.com/99852346/179131468-cf03fc25-5d94-40b6-8e49-4c8c6051a8ca.jpg)
+
+![preview-animal-detail](https://user-images.githubusercontent.com/99852346/179131489-dac5a4eb-aa33-4dd8-943c-e18cd384585c.jpg)
+
+![preview-favorites](https://user-images.githubusercontent.com/99852346/179131501-46761be2-3610-47fd-8c1e-620e78995e47.jpg)
+
+
+
 
 ## Links
 
